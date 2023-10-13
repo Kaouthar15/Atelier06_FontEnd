@@ -57,7 +57,7 @@ export default class Calcul extends Component {
                         <input type="radio" name="mode_transport"  value="express"  checked={this.state.mode_transport==="express"} onChange={this.handleChange}/>Express <br/>
                 </label>
                 <input type="submit" value='Calculer' onClick={this.handleClick} /> <br/>
-                <label>
+                <label> 
                         Cout total en DH:
                         <input type="number" name="cout_total" value={this.state.cout_total} readOnly />
                 </label>
