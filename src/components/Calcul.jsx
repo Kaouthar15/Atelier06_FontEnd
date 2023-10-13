@@ -10,13 +10,35 @@ export default class Calcul extends Component {
     }
 
     handleChange = (e) => {
+      
       const name = e.target.name;
-      const type = e.target.type;
-      const value = type === 'checkbox' ? e.target.checked : e.target.value;
-      this.setState({ [name]: type === 'checkbox' ? e.target.checked : value });
+      const value = e.target.value;
+      // const type = e.target.type;
+      // const value = type === 'checkbox' ? e.target.checked : e.target.value;
+      // this.setState({ [name]: type === 'checkbox' ? e.target.checked : value });
+      this.setState({[name]:value})
     };
+
+    handleOnchangeRadio = (e)=>
+    {
+      let cout =0;
+      cout = this.state.poids<10? this.state.distance * 0.5: this.state.distance *0.3*this.state.poids/10
+
+      if(e.target.value === "normal")
+      {
+        this.setState({cout_total:cout, mode:"normal"}); 
+      }
+      else
+      {
+        this.setState({cout_total:cout*1.2, mode:"express"});
+        
+      }
+    }
     handleClick = (e) =>{
       e.preventDefault();
+      if (e.target.type==='radio')
+        this.handleChange(e);
+
       if (this.state.poids === 0 || this.state.distance === 0)
       {
         alert("Veuillez remplir tous les champs");
@@ -39,9 +61,10 @@ export default class Calcul extends Component {
       }
 
     }
+
   render() {
     return (
-      <div>
+      <div> 
             <form action="" onSubmit={this.handleClick}>
                 <label>
                         Distance en KM:
@@ -53,8 +76,8 @@ export default class Calcul extends Component {
                 </label>
                 <label>
                         Mode de transport:
-                        <input type="radio" name="mode_transport"  value="normal" checked={this.state.mode_transport==="normal"} onChange={this.handleChange}/>Normal 
-                        <input type="radio" name="mode_transport"  value="express"  checked={this.state.mode_transport==="express"} onChange={this.handleChange}/>Express <br/>
+                        <input type="radio" name="mode_transport"  value="normal" onChange={this.handleOnchangeRadio} checked={this.state.mode_transport==="normal"} />Normal 
+                        <input type="radio" name="mode_transport"  value="express" onChange={this.handleOnchangeRadio}  checked={this.state.mode_transport==="express"} />Express <br/>
                 </label>
                 <input type="submit" value='Calculer' onClick={this.handleClick} /> <br/>
                 <label> 
